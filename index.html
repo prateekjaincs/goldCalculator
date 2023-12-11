@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+    font-family: sans-serif;
+	width: fit-content;
+    margin: auto;
+}
+#details {
+	font-weight: bold;
+}
+.labels {
+	color: #515f04;
+}
+.values {
+	color: green;
+}
+.loss {
+	color: red;
+}
+</style>
+<body>
+<h1 style="text-align: center;"><b>Gold Calculator</b></h1>
+<label><b>999 Gold Price:</b></label>
+<input type="text" id="goldPrice999InputBox" name="goldPrice999" oninput="goldCalulator()"> Rs
+<p id="details"></p>
+
+<iframe id="manokamanagold" src="https://manokamanagold.com/default.aspx" height="200" width="300" title="Iframe Example"
+></iframe>
+</body>
+<script>
+function goldCalulator () {
+	var splitor = '<br>';
+	var goldPrice999 = document.getElementById("goldPrice999InputBox").value;
+	var myGoldWeight = 40.385; // 403.85 gm
+	var cashGoldPrice999 = goldPrice999 - 1700; 
+	var cashGoldPrice995 =  Math.round(cashGoldPrice999 - ((cashGoldPrice999/100)/2));
+	var receivedCash = Math.round(cashGoldPrice995 * myGoldWeight);
+	var lossAmount = Math.round(2494000 - receivedCash);
+
+	var details = '';
+	details += '<span class="labels">999 Online Gold Price </span> = <span class="values">' + goldPrice999 + splitor + '</span>';
+	details += '<span class="labels">999 Cash Gold Price = <span class="values">' + cashGoldPrice999 + splitor + '</span>';
+	details += '<span class="labels">995 Cash Gold Price = <span class="values">' + cashGoldPrice995 + splitor + '</span>';
+	details += '<span class="labels">Proposed Cash to sell = <span class="values">' + receivedCash + splitor + '</span>';
+
+	if (lossAmount < 0) 
+		details += '<span class="labels">Gain Cash = <span class="values">' + (lossAmount * -1) + splitor + '</span>';
+	else
+		details += '<span class="labels">Loss Cash = <span class="values loss">' + (lossAmount * -1) + splitor + '</span>';
+
+	document.getElementById("details").innerHTML = '' + details;
+}
+/*
+setTimeout(() => {
+	var frameObj = document.getElementById('manokamanagold');
+	console.log(frameObj.contentWindow.document.body.innerHTML)
+	var frameContent = frameObj.contentDocument.document;
+		
+	var elmnt = frameContent.getElementsByClassName("pricepd")[1];
+	var ratePrice = elmnt.getElementsByClassName('ratePrice')[0];
+	console.log(ratePrice.innerText)
+}, 5000);
+*/
+setTimeout(() => {
+const iframe = document.querySelector("iframe").contentWindow;
+
+iframe.document.querySelector("body").style.backgroundColor = "blue";
+// this would turn the 1st iframe in document blue.
+}, 5000);
+</script>
+</html>
